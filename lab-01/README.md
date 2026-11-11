@@ -88,17 +88,12 @@ The Express server listens at `http://localhost:3000/`.
 
 All screenshots are stored in [`screenshots/`](./screenshots/):
 
-### 1. Plain HTTP Server Output (`GET /`)
+### 1. Express Server Welcome (`GET /`)
 - **URL:** `http://localhost:3000/`
-- **Output:** `Hello` (Status `200 OK`)
-![01-plain-http-server](screenshots/01-plain-http-server.png)
+- **Output:** `"Welcome to the Lab 1 Express server!"` (Status `200 OK`)
+![01-express-welcome](screenshots/01-express-welcome.png)
 
-### 2. Express Server Welcome (`GET /`)
-- **URL:** `http://localhost:3000/`
-- **Output:** `"Welcome to Backend Development Fundamentals - Lab 01 Express Server!"` (Status `200 OK`)
-![02-express-welcome](screenshots/02-express-welcome.png)
-
-### 3. Express About Route (`GET /about`)
+### 2. Express About Route (`GET /about`)
 - **URL:** `http://localhost:3000/about`
 - **Output:**
 ```json
@@ -110,28 +105,17 @@ All screenshots are stored in [`screenshots/`](./screenshots/):
   "lab": "Lab 01 - Node.js and Express Fundamentals"
 }
 ```
-![03-express-about](screenshots/03-express-about.png)
+![02-express-about](screenshots/02-express-about.png)
 
-### 4. Express Time Route (`GET /time`)
+### 3. Express Time Route (`GET /time`)
 - **URL:** `http://localhost:3000/time`
-- **Output:**
-```json
-{
-  "currentTime": "2026-11-11T06:58:00.000Z",
-  "localTime": "Wed Nov 11 2026 12:28:00 GMT+0530 (India Standard Time)"
-}
-```
-![04-express-time](screenshots/04-express-time.png)
+- **Output:** `Tue Oct 27 2026 10:24:40 GMT+0000 (Coordinated Universal Time)` (Status `200 OK`)
+![03-express-time](screenshots/03-express-time.png)
 
-### 5. Unknown Path 404 Error (`GET /invalid-url`)
+### 4. Unknown Path 404 Error (`GET /invalid-url`)
 - **URL:** `http://localhost:3000/invalid-url`
-- **Output:**
-```json
-{
-  "message": "Route not found"
-}
-```
-![05-express-404](screenshots/05-express-404.png)
+- **Output:** `404 - Route not found` (Status `404 Not Found`)
+![04-express-404](screenshots/04-express-404.png)
 
 ---
 
