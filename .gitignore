@@ -1,0 +1,8 @@
+# Git Ignore for BDF Labs
+node_modules/
+package-lock.json
+*.log
+.env
+.DS_Store
+Thumbs.db
+*.sqlite3-journal
