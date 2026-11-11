@@ -78,82 +78,71 @@ All screenshots are stored in [`screenshots/`](./screenshots/):
 
 ### 1. GET All Books (`GET /books/`)
 - **URL:** `GET http://localhost:3000/books/`
-- **Expected Status:** `200 OK`
-- **Response:** Array of all 10 seeded books.
+- **Status:** `200 OK`
+- **Response:** Array of all seeded books.
 ![01-get-all-books](screenshots/01-get-all-books.png)
 
-### 2. GET Single Book (`GET /books/1/`)
-- **URL:** `GET http://localhost:3000/books/1/`
-- **Expected Status:** `200 OK`
+### 2. GET Single Book by ID (`GET /books/3/`)
+- **URL:** `GET http://localhost:3000/books/3/`
+- **Status:** `200 OK`
 - **Response:**
 ```json
 {
-  "id": 1,
-  "title": "The Great Gatsby",
-  "author": "F. Scott Fitzgerald",
-  "price": 350,
-  "pages": 180
+  "id": 3,
+  "title": "Atomic Habits",
+  "author": "James Clear",
+  "price": 499,
+  "pages": 320
 }
 ```
 ![02-get-single-book](screenshots/02-get-single-book.png)
 
-### 3. POST Add Book (`POST /books/`)
+### 3. GET Book Not Found (`GET /books/999/`)
+- **URL:** `GET http://localhost:3000/books/999/`
+- **Status:** `404 Not Found`
+- **Response:** `{"error":"Book not found"}`
+![03-get-book-not-found](screenshots/03-get-book-not-found.png)
+
+### 4. SQL Injection Prevention Test (`GET /books/1 OR 1=1/`)
+- **URL:** `GET http://localhost:3000/books/1 OR 1=1/`
+- **Status:** `404 Not Found` (Sanitized via `?` parameterized query)
+- **Response:** `{"error":"Book not found"}`
+![04-sql-injection-prevention](screenshots/04-sql-injection-prevention.png)
+
+### 5. POST Add New Book (`POST /books/`)
 - **URL:** `POST http://localhost:3000/books/`
-- **Headers:** `Content-Type: application/json`
-- **Body:**
-```json
-{
-  "title": "The Pragmatic Programmer",
-  "author": "David Thomas",
-  "price": 899,
-  "pages": 352
-}
-```
-- **Expected Status:** `201 Created`
-- **Response:**
-```json
-{
-  "message": "Book Added Successfully",
-  "bookId": 11
-}
-```
-![03-post-add-book](screenshots/03-post-add-book.png)
+- **Status:** `201 Created`
+- **Response:** `{"message":"Book added successfully","bookId":11}`
+![05-post-add-book-success](screenshots/05-post-add-book-success.png)
 
-### 4. PUT Update Book (`PUT /books/1/`)
-- **URL:** `PUT http://localhost:3000/books/1/`
-- **Headers:** `Content-Type: application/json`
-- **Body:**
-```json
-{
-  "title": "The Great Gatsby (Special Illustrated Edition)",
-  "author": "F. Scott Fitzgerald",
-  "price": 499,
-  "pages": 220
-}
-```
-- **Expected Status:** `200 OK`
-- **Response:**
-```json
-{
-  "message": "Book Updated Successfully"
-}
-```
-![04-put-update-book](screenshots/04-put-update-book.png)
+### 6. POST Validation Error Handling (`POST /books/`)
+- **URL:** `POST http://localhost:3000/books/`
+- **Body:** `{ "title": "", "author": "Yuval Noah Harari", "price": -10, "pages": 0 }`
+- **Status:** `400 Bad Request`
+- **Response:** `{"error":"title, author (text) and price, pages (whole numbers) are required"}`
+![06-post-validation-error](screenshots/06-post-validation-error.png)
 
-### 5. DELETE Remove Book (`DELETE /books/1/`)
-- **URL:** `DELETE http://localhost:3000/books/1/`
-- **Expected Status:** `200 OK`
-- **Response:**
-```json
-{
-  "message": "Book Deleted Successfully"
-}
-```
-![05-delete-book](screenshots/05-delete-book.png)
+### 7. PUT Update Book (`PUT /books/11/`)
+- **URL:** `PUT http://localhost:3000/books/11/`
+- **Status:** `200 OK`
+- **Response:** `{"message":"Book updated successfully"}`
+![07-put-update-book](screenshots/07-put-update-book.png)
 
-### 6. SQLite Database Verification
-- Direct query check verifying changes persisted to the `.db` file.
-![06-database-cli-view](screenshots/06-database-cli-view.png)
+### 8. DELETE Book Successfully (`DELETE /books/11/`)
+- **URL:** `DELETE http://localhost:3000/books/11/`
+- **Status:** `200 OK`
+- **Response:** `{"message":"Book deleted successfully"}`
+![08-delete-book-success](screenshots/08-delete-book-success.png)
+
+### 9. DELETE Book Not Found (`DELETE /books/11/`)
+- **URL:** `DELETE http://localhost:3000/books/11/`
+- **Status:** `404 Not Found`
+- **Response:** `{"error":"Book not found"}`
+![09-delete-book-not-found](screenshots/09-delete-book-not-found.png)
+
+### 10. SQLite Database Verification
+- Direct query check verifying records persisted in `books.db`.
+![10-database-view](screenshots/10-database-view.png)
 
 ---
 

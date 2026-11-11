@@ -85,74 +85,58 @@ The server will start listening at `http://localhost:3000/`.
 All test screenshots are stored inside the [`screenshots/`](./screenshots/) directory:
 
 ### 1. GET All Books (Default Query)
-- **URL:** `GET http://localhost:3000/books`
-- **Expected Status:** `200 OK`
+- **URL:** `GET http://localhost:3000/books/`
+- **Status:** `200 OK`
+- **Response:** All 10 books in default order.
 ![01-get-all-books](screenshots/01-get-all-books.png)
 
-### 2. Search Books (`search_q=Harry`)
-- **URL:** `GET http://localhost:3000/books?search_q=Harry`
-- **Expected Status:** `200 OK`
+### 2. Search Books by Title (`search_q=Code`)
+- **URL:** `GET http://localhost:3000/books/?search_q=Code`
+- **Status:** `200 OK`
+- **Response:** Filtered book records matching title substring `"Code"`.
 ![02-get-books-search](screenshots/02-get-books-search.png)
 
-### 3. Sort Books (`order_by=price&order=DESC`)
-- **URL:** `GET http://localhost:3000/books?order_by=price&order=DESC`
-- **Expected Status:** `200 OK`
+### 3. Sort Books by Price Descending (`order_by=price&order=DESC`)
+- **URL:** `GET http://localhost:3000/books/?order_by=price&order=DESC`
+- **Status:** `200 OK`
+- **Response:** Books sorted from highest price (720) to lowest price (250).
 ![03-get-books-sort](screenshots/03-get-books-sort.png)
 
-### 4. Filter Books by Price Range (`min_price=400&max_price=700`)
-- **URL:** `GET http://localhost:3000/books?min_price=400&max_price=700`
-- **Expected Status:** `200 OK`
-![04-get-books-filter-price](screenshots/04-get-books-filter-price.png)
+### 4. GET Single Book by ID (`GET /books/3/`)
+- **URL:** `GET http://localhost:3000/books/3/`
+- **Status:** `200 OK`
+- **Response:** Single book object corresponding to `id: 3` (*Atomic Habits*).
+![04-get-single-book](screenshots/04-get-single-book.png)
 
-### 5. Pagination (`limit=3&offset=0`)
-- **URL:** `GET http://localhost:3000/books?limit=3&offset=0`
-- **Expected Status:** `200 OK`
-![05-get-books-pagination](screenshots/05-get-books-pagination.png)
+### 5. POST Create Book (Success)
+- **URL:** `POST http://localhost:3000/books/`
+- **Status:** `201 Created`
+- **Response:** `{"message":"Book added successfully","bookId":11}`
+![05-post-book-success](screenshots/05-post-book-success.png)
 
-### 6. GET Single Book by ID (Success)
-- **URL:** `GET http://localhost:3000/books/1`
-- **Expected Status:** `200 OK`
-![06-get-single-book-success](screenshots/06-get-single-book-success.png)
+### 6. POST Validation Error Handling
+- **URL:** `POST http://localhost:3000/books/`
+- **Status:** `400 Bad Request`
+- **Response:** `{"message":"Invalid input: title, author, non-negative price, and positive pages are required"}`
+![06-post-validation-error](screenshots/06-post-validation-error.png)
 
-### 7. GET Single Book by ID (Not Found)
-- **URL:** `GET http://localhost:3000/books/999`
-- **Expected Status:** `404 Not Found`
-![07-get-single-book-404](screenshots/07-get-single-book-404.png)
+### 7. PUT Update Book by ID
+- **URL:** `PUT http://localhost:3000/books/11/`
+- **Status:** `200 OK`
+- **Response:** `{"message":"Book updated successfully"}`
+![07-put-book-success](screenshots/07-put-book-success.png)
 
-### 8. POST Create Book (Success)
-- **URL:** `POST http://localhost:3000/books`
-- **Expected Status:** `201 Created`
-![08-post-book-success](screenshots/08-post-book-success.png)
+### 8. DELETE Book by ID (Success)
+- **URL:** `DELETE http://localhost:3000/books/11/`
+- **Status:** `200 OK`
+- **Response:** `{"message":"Book deleted successfully"}`
+![08-delete-book-success](screenshots/08-delete-book-success.png)
 
-### 9. POST Create Book - Missing Title Validation
-- **URL:** `POST http://localhost:3000/books`
-- **Expected Status:** `400 Bad Request`
-![09-post-book-validation-title](screenshots/09-post-book-validation-title.png)
-
-### 10. POST Create Book - Invalid Price Validation
-- **URL:** `POST http://localhost:3000/books`
-- **Expected Status:** `400 Bad Request`
-![10-post-book-validation-price](screenshots/10-post-book-validation-price.png)
-
-### 11. PUT Update Book (Success)
-- **URL:** `PUT http://localhost:3000/books/1`
-- **Expected Status:** `200 OK`
-![11-put-book-success](screenshots/11-put-book-success.png)
-
-### 12. PUT Update Book (Not Found)
-- **URL:** `PUT http://localhost:3000/books/999`
-- **Expected Status:** `404 Not Found`
-![12-put-book-404](screenshots/12-put-book-404.png)
-
-### 13. DELETE Book (Success)
-- **URL:** `DELETE http://localhost:3000/books/1`
-- **Expected Status:** `200 OK`
-![13-delete-book-success](screenshots/13-delete-book-success.png)
-
-### 14. DELETE Book (Not Found)
-- **URL:** `DELETE http://localhost:3000/books/999`
-- **Expected Status:** `404 Not Found`
-![14-delete-book-404](screenshots/14-delete-book-404.png)
+### 9. DELETE Book by ID (Not Found)
+- **URL:** `DELETE http://localhost:3000/books/11/`
+- **Status:** `404 Not Found`
+- **Response:** `{"message":"Book not found"}`
+![09-delete-book-404](screenshots/09-delete-book-404.png)
 
 ---
 
